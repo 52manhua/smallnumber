@@ -1,0 +1,220 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>算式生成器(js 版)</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" type="text/css" media="screen" href="css/bootstrap.min.css" />
+    <style>
+        html {
+            height: 100%;
+        }
+
+        body {
+            height: 100%;
+        }
+
+        /*web background*/
+
+        .container {
+            display: table;
+            height: 100%;
+        }
+
+        .row {
+            display: table-cell;
+            vertical-align: middle;
+        }
+
+        /* centered columns styles */
+
+        .row-centered {
+            text-align: center;
+        }
+
+        .col-centered {
+            display: inline-block;
+            float: none;
+            text-align: left;
+            margin-right: -5px;
+        }
+
+        /*有序列表样式*/
+
+        ol {
+            counter-reset: li;
+        }
+
+        ol li {
+            margin-top: 5px;
+        }
+
+        ol a {
+            font-size: 14px;
+            text-decoration: none;
+            color: #000000;
+        }
+
+        ol a:before {
+            content: counter(li);
+            counter-increment: li;
+            position: absolute;
+            left: 20px;
+            width: 15px;
+            height: 15px;
+            line-height: 15px;
+            text-align: center;
+            border: 1px solid;
+        }
+
+        ol a:hover {
+            color: red;
+        }
+    </style>
+</head>
+
+<body>
+
+    <div class="container">
+        <div class="row row-centered">
+            <div class="col-md-6 col-centered">
+                <div>
+                    <span class="well" id="x" title="必填">X</span>以内的
+                    <span class="well">
+                        <select id="xmethod">
+                            <option value="1">加</option>
+                            <option value="2">减</option>
+                            <option value="3">加减</option>
+                        </select>
+                    </span>法
+                    <span class="well" id="xcount">X</span>道。
+                </div>
+                <div>
+                    <br>
+                    <button class="btn btn-primary" id="gogogo">生成(Lets go!)</button>
+                </div>
+                <!-- 显示层 -->
+                <div class="well" id="xlist">
+
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- jQuery (Bootstrap 的所有 JavaScript 插件都依赖 jQuery，所以必须放在前边) -->
+    <script src="js/jquery.min.js"></script>
+    <!-- 加载 Bootstrap 的所有 JavaScript 插件。你也可以根据需要只加载单个插件。 -->
+    <script src="js/bootstrap.min.js"></script>
+    <!-- 计算js -->
+    <script>
+        $("#x").click(setlimit);
+        $("#xcount").click(setcount);
+        $("#gogogo").click(letsgo);
+
+        function setcount(){
+            var ret = "";
+            ret = prompt("输入题数");
+
+            if (ret.length > 0) {
+                ret = ret.replace(/[^\d]/g, '');
+                if (ret.length > 0) document.getElementById("xcount").innerHTML = ret;
+            }            
+        }
+
+        function setlimit() {
+            var ret = "";
+            ret = prompt("输入最大数");
+
+            if (ret.length > 0) {
+                ret = ret.replace(/[^\d]/g, '');
+                if (ret.length > 0) document.getElementById("x").innerHTML = ret;
+            }
+        }
+
+        //排除重复的数组
+        var savearr = [];
+        var testpara = "";
+
+        function letsgo() {
+            var max = $("#x").text();
+            var min = 1;
+            var method = $("#xmethod").val();
+            var xcount = $("#xcount").text();
+
+            //输入合法性判断
+            if (! isRealNum(max))return;
+
+                console.log("product  " + max + " " + min + " " + method);
+            //返回算式的 html
+            ret = "<ol>";
+
+            //针对 xcount 的处理
+            if(xcount == "X")xcount = 10;
+
+            switch (method) {
+                case "1":
+
+                    for (var i = 0; i < xcount; i++) {
+                        var a = parseInt(Math.random() * (max - min -1) + min );
+                        var b = parseInt(Math.random() * (max - a - min) + min);
+
+                        var c = a + b;
+
+
+                        var j = 0;
+                        var limcount =0;//防假死
+                        testpara = a + " " + b;
+
+                            while ($.inArray(testpara, savearr) != -1 ) {
+                                console.log("重复" + savearr[j]);
+                                var a = parseInt(Math.random() * (max - min -1) + min);
+                                var b = parseInt(Math.random() * (max - a - min) + min);
+                                var c = a + b;
+                                testpara = a + " " + b;
+
+                                limcount ++;
+
+                                if(limcount > 10){
+                                    c = c + "<span style='font-size:8px'>[rep]</span>";
+                                    break;
+                                };
+                            }
+
+
+                        savearr.push(testpara);
+                        j = 0;
+
+                        ret = ret + "<li><h4 style='color:blue;'>" + a + " + " + b + " = " + c + "</h4></li>";
+                    }
+
+                    console.log("g");
+                    break;
+
+                default:
+                    break;
+            }
+            ret = ret + "</ol>";
+
+            $("#xlist").html(ret);
+            //document.getElementById("xlist").innerHTML=ret;
+            //清空 arrsave
+            savearr.length = 0;
+        }
+
+        function isRealNum(val) {
+            // isNaN()函数 把空串 空格 以及NUll 按照0来处理 所以先去除
+            if (val === "" || val == null) {
+                return false;
+            }
+            if (!isNaN(val)) {
+                return true;
+            } else {
+                return false;
+            }
+        }
+    </script>
+</body>
+
+</html>

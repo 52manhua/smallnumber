@@ -1,0 +1,64 @@
+html {
+    height: 100%;
+}
+
+body {
+    height: 100%;
+}
+
+/*web background*/
+
+.container {
+    display: table;
+    height: 100%;
+}
+
+.row {
+    display: table-cell;
+    vertical-align: middle;
+}
+
+/* centered columns styles */
+
+.row-centered {
+    text-align: center;
+}
+
+.col-centered {
+    display: inline-block;
+    float: none;
+    text-align: left;
+    margin-right: -5px;
+}
+
+/*有序列表样式*/
+
+ol {
+    counter-reset: li;
+}
+
+ol li {
+    margin-top: 5px;
+}
+
+ol a {
+    font-size: 14px;
+    text-decoration: none;
+    color: #000000;
+}
+
+ol a:before {
+    content: counter(li);
+    counter-increment: li;
+    position: absolute;
+    left: 20px;
+    width: 15px;
+    height: 15px;
+    line-height: 15px;
+    text-align: center;
+    border: 1px solid;
+}
+
+ol a:hover {
+    color: red;
+}
