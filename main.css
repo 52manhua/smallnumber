@@ -62,3 +62,8 @@ ol a:before {
 ol a:hover {
     color: red;
 }
+
+/*增加边框*/
+.shapetext{
+    text-shadow: rgb(13, 33, 150) 0 0 3px;
+}
