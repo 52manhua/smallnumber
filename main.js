@@ -69,6 +69,9 @@ function restsel(){
 
 $("#layout").append("<span id='x' style='text-align:center;font-size:20px;'>0</span>");
 //[主输出]结果输出以及运算
+
+//3.6 减法和减法合并为一个，最终结算
+//3.6。1 实时生成公式
 $("#plus").bind("click",function(){
     // //增加一个元素到 #tbl
     // totalcount ++;
@@ -229,8 +232,7 @@ function debuginfo(){
     console.log("oldcount:" + oldcount);
     console.log("finalget -> " + finalget());
 }
-//3.6 减法和减法合并为一个，最终结算
-//3.6。1 实时生成公式
+
 
 //4、制作小兰布的动画，作为背景，数字作为前景
 //4.1 绑定事件,显示对钩的图片.
