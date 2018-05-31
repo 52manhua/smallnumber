@@ -203,7 +203,7 @@ function resetbl(tblcount){
                 $("#tbl").append("<tr id='tr"+ r +"' style='text-align:center;'></tr>");
                 r++;
             }
-            $("#tr"+ (r-1)).append("<td id='td" + tdid + "'> +" + psel +"<br><font size= 1px><"+ tdid +  "></font></td>");
+            $("#tr"+ (r-1)).append("<td id='td" + tdid + "' style='font-size:2px'> +" + psel +"<br><font size= 1px><"+ tdid +  "></font></td>");
             //增加数字的总和
             //"("+ tdid  + ")"+
 
