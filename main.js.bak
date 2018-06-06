@@ -166,7 +166,6 @@ function resetbl(tblcount){
                 //不从按钮添加，其实无法添加
             }
             ////3.2.3 禁止重复点击
-			////3.3.3 改为减少最后一个..
             console.log($(this).text());
             if($(this).text().indexOf("-") != -1){
 
